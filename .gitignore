@@ -44,6 +44,7 @@ coverage*.xml
 
 # ASP.NET / local dev settings (do NOT commit secrets)
 appsettings.Development.json
+appsettings.json
 .env
 *.env
 secrets.json
@@ -60,5 +61,3 @@ secrets.json
 
 # Optional: static publish output
 wwwroot/
-
-# Keep this file committed — it's safe and prevents noise in the repo
