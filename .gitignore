@@ -1,4 +1,4 @@
-﻿# Visual Studio / IDE
+# Visual Studio / IDE
 .vs/
 .vscode/
 *.suo
@@ -44,6 +44,7 @@ coverage*.xml
 
 # ASP.NET / local dev settings (do NOT commit secrets)
 appsettings.Development.json
+appsettings.json
 .env
 *.env
 secrets.json
