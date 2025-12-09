@@ -1,0 +1,64 @@
+﻿# Visual Studio / IDE
+.vs/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.idea/
+
+# Build outputs
+bin/
+obj/
+out/
+publish/
+*.dll
+*.exe
+*.app
+
+# NuGet
+*.nupkg
+*.snupkg
+**/[Pp]ackages/*
+!**/[Pp]ackages/build/
+
+# .NET / SDK
+project.lock.json
+project.fragment.lock.json
+artifacts/
+**/project.assets.json
+
+# Logs, temp, OS files
+*.log
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# Test results / coverage
+TestResults/
+*.trx
+coverage/
+coverage*.json
+coverage*.xml
+
+# ASP.NET / local dev settings (do NOT commit secrets)
+appsettings.Development.json
+.env
+*.env
+secrets.json
+
+# Database files
+*.mdf
+*.ldf
+*.sqlite
+*.db
+
+# Tooling / caches
+.tools/
+*.binlog
+
+# Optional: static publish output
+wwwroot/
+
+# Keep this file committed — it's safe and prevents noise in the repo
