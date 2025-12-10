@@ -71,10 +71,9 @@ using Levavishwam_Backend.ServiceLayer.ImplementationSL;
 using Levavishwam_Backend.ServiceLayer.InterfaceSL;
 using Levavishwam_Backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.EntityFrameworkCore;
-
 
 namespace Levavishwam_Backend
 {
@@ -90,10 +89,13 @@ namespace Levavishwam_Backend
                 options.AddPolicy("AllowFrontend",
                     policy =>
                     {
-                        policy.WithOrigins("http://localhost:5173")   // React Vite
-                              .AllowAnyHeader()
-                              .AllowAnyMethod()
-                              .AllowCredentials();
+                        policy.WithOrigins(
+                        "http://localhost:5173",
+                         "https://localhost:5173"
+                         )
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();    
                     });
             });
             // ----------------------------------------------------------------
@@ -102,15 +104,23 @@ namespace Levavishwam_Backend
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            // --------------------- DATABASE CONTEXT (MANDATORY) ---------------------
             builder.Services.AddDbContext<AppDbContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DBSettingConnection"));
-            });
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DBSettingConnection")));
+            // ------------------------------------------------------------------------
 
-            builder.Services.AddSingleton<JwtTokenGenerator>();
-            builder.Services.AddScoped<IAuthRepository, AuthRepository>();
-            builder.Services.AddScoped<IAuthService, AuthService>();
+            //// --------------------- AUTH MODULE DI ---------------------
+            //builder.Services.AddSingleton<JwtService>();
+            //builder.Services.AddScoped<IAuthRL, AuthRL>();
+            //builder.Services.AddScoped<IAuthSL, AuthSL>();
+            // ----------------------------------------------------------
 
+            // --------------------- HOME MODULE DI ---------------------
+            builder.Services.AddScoped<IHomeRepository, HomeRepository>();
+            builder.Services.AddScoped<IHomeService, HomeService>();
+            // ----------------------------------------------------------
+
+            // --------------------- JWT AUTH ---------------------------
             builder.Services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -129,6 +139,7 @@ namespace Levavishwam_Backend
                     )
                 };
             });
+            // ----------------------------------------------------------
 
             var app = builder.Build();
 
@@ -140,9 +151,8 @@ namespace Levavishwam_Backend
 
             app.UseHttpsRedirection();
 
-            // --------------------- IMPORTANT! CORS MUST BE BEFORE AUTH ---------------------
+            // CORS must come before Auth
             app.UseCors("AllowFrontend");
-            // --------------------------------------------------------------------------------
 
             app.UseAuthentication();
             app.UseAuthorization();

@@ -1,0 +1,17 @@
+﻿using Levavishwam_Backend.DTOs.Home;
+
+namespace Levavishwam_Backend.ServiceLayer.InterfaceSL
+{
+    public interface IHomeService
+    {
+        Task<List<CarouselDto>> GetCarouselAsync();
+        Task<List<EventDto>> GetEventsAsync();
+        Task<List<NewsDto>> GetNewsAsync();
+        Task<NewsDto?> GetNewsByIdAsync(int id);
+        Task<List<DownloadDto>> GetDownloadsAsync();
+        Task<List<CommitteeMemberDto>> GetCommitteeAsync();
+        Task<List<InformationDto>> GetInformationAsync();
+
+
+    }
+}

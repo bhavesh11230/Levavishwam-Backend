@@ -1,13 +1,23 @@
 ﻿using Levavishwam_Backend.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+
 namespace Levavishwam_Backend.Data
 {
     public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
+       
         public DbSet<User> Users { get; set; }
+
+        public DbSet<CarouselImage> Carousel { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<News> News { get; set; }
+        public DbSet<Download> Downloads { get; set; }
+        public DbSet<CommitteeMember> Committee { get; set; }
+        public DbSet<Information> Information { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,19 +35,18 @@ namespace Levavishwam_Backend.Data
                     .HasMaxLength(200);
 
                 entity.HasIndex(u => u.Email)
-                    .IsUnique();   // Unique Email
+                    .IsUnique();
 
                 entity.Property(u => u.PasswordHash)
                     .IsRequired();
 
                 entity.Property(u => u.Role)
-                    .HasDefaultValue("User")        // Default Role
+                    .HasDefaultValue("User")
                     .HasMaxLength(50);
 
                 entity.Property(u => u.Status)
-      .HasDefaultValue("Pending")  // or "Active"
-      .HasMaxLength(50);
-                // Active by default
+                    .HasDefaultValue("Pending")
+                    .HasMaxLength(50);
 
                 entity.Property(u => u.CreatedAt)
                     .HasDefaultValueSql("GETUTCDATE()");
@@ -45,6 +54,8 @@ namespace Levavishwam_Backend.Data
                 entity.Property(u => u.UpdatedAt)
                     .IsRequired(false);
             });
+
+            
         }
     }
 }

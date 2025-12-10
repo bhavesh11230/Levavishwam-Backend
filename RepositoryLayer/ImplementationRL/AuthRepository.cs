@@ -17,9 +17,6 @@ namespace Levavishwam_Backend.RepositoryLayer.ImplementationRL
             _db = db;
         }
 
-        // -------------------------------------------------------
-        // SIGNUP
-        // -------------------------------------------------------
         public async Task<SignupResponse> SignupAsync(SignupRequest signupRequest)
         {
             var response = new SignupResponse();
@@ -67,9 +64,7 @@ namespace Levavishwam_Backend.RepositoryLayer.ImplementationRL
             return response;
         }
 
-        // -------------------------------------------------------
-        // LOGIN
-        // -------------------------------------------------------
+      
         public async Task<LoginResponse> LoginAsync(LoginRequest loginRequest)
         {
             var response = new LoginResponse();
