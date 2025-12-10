@@ -105,7 +105,11 @@ namespace Levavishwam_Backend
             builder.Services.AddSwaggerGen();
 
             // --------------------- DATABASE CONTEXT (MANDATORY) ---------------------
+<<<<<<< Updated upstream
             builder.Services.AddDbContext<AppDbContext>(options =>
+=======
+            builder.Services.AddDbContext<AppDBContext>(options =>
+>>>>>>> Stashed changes
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DBSettingConnection")));
             // ------------------------------------------------------------------------
 

@@ -1,5 +1,6 @@
 ﻿using Levavishwam_Backend.Models;
 using Microsoft.EntityFrameworkCore;
+<<<<<<< Updated upstream
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 
@@ -11,6 +12,16 @@ namespace Levavishwam_Backend.Data
 
        
         public DbSet<User> Users { get; set; }
+=======
+using System;
+using System.Collections.Generic;
+
+namespace Levavishwam_Backend.Data
+{
+    public class AppDBContext : DbContext
+    {
+        public AppDBContext(Microsoft.EntityFrameworkCore.DbContextOptions<AppDBContext> options) : base(options) { }
+>>>>>>> Stashed changes
 
         public DbSet<CarouselImage> Carousel { get; set; }
         public DbSet<Event> Events { get; set; }
@@ -18,6 +29,7 @@ namespace Levavishwam_Backend.Data
         public DbSet<Download> Downloads { get; set; }
         public DbSet<CommitteeMember> Committee { get; set; }
         public DbSet<Information> Information { get; set; }
+<<<<<<< Updated upstream
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -57,5 +69,7 @@ namespace Levavishwam_Backend.Data
 
             
         }
+=======
+>>>>>>> Stashed changes
     }
 }
