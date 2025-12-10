@@ -106,7 +106,11 @@ namespace Levavishwam_Backend
 
             // --------------------- DATABASE CONTEXT (MANDATORY) ---------------------
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             builder.Services.AddDbContext<AppDbContext>(options =>
+=======
+            builder.Services.AddDbContext<AppDBContext>(options =>
+>>>>>>> Stashed changes
 =======
             builder.Services.AddDbContext<AppDBContext>(options =>
 >>>>>>> Stashed changes
