@@ -1,6 +1,6 @@
 ﻿using Levavishwam_Backend.CommonLayer.Auth;
 
-namespace Levavishwam_Backend.ServiceLayer
+namespace Levavishwam_Backend.ServiceLayer.InterfaceSL
 {
     public interface IAuthSL
     {
