@@ -43,6 +43,7 @@ namespace Levavishwam_Backend.RepositoryLayer.ImplementationRL
                 // Create User entity
                 var newUser = new User
                 {
+                    Name = signupRequest.Name,
                     Email = signupRequest.Email,
                     PasswordHash = hashedPassword,
                     Role = "User",
@@ -98,7 +99,7 @@ namespace Levavishwam_Backend.RepositoryLayer.ImplementationRL
                 response.IsSuccess = true;
                 response.Message = "Login successful";
                 response.UserId = user.UserId;
-                response.Name = user.Email; // If you add Name later, update this.
+                response.Name = user.Name;
             }
             catch (Exception ex)
             {

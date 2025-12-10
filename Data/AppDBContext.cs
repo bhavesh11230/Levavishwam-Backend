@@ -35,7 +35,9 @@ namespace Levavishwam_Backend.Data
                     .HasMaxLength(50);
 
                 entity.Property(u => u.Status)
-                    .HasDefaultValue(true);         // Active by default
+      .HasDefaultValue("Pending")  // or "Active"
+      .HasMaxLength(50);
+                // Active by default
 
                 entity.Property(u => u.CreatedAt)
                     .HasDefaultValueSql("GETUTCDATE()");
