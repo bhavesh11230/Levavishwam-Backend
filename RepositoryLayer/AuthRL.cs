@@ -22,7 +22,7 @@ namespace Levavishwam_Backend.RepositoryLayer
             {
                 using (var con = new SqlConnection(_connectionString))
                 {
-                    const string emailExistsQuery = "SELECT COUNT(1) FROM Users WHERE Email = @Email";
+                    const string emailExistsQuery = "SELECT COUNT(1) FROM Userss WHERE Email = @Email";
                     using (var cmd = new SqlCommand(emailExistsQuery, con))
                     {
                         cmd.CommandType = CommandType.Text;
@@ -49,23 +49,17 @@ namespace Levavishwam_Backend.RepositoryLayer
                 using (var con = new SqlConnection(_connectionString))
                 {
                     const string insertQuery = @"
-                        INSERT INTO Users
-                            (Name, Email, Mobile, Address, DOB, Gender, CommunityInfo, ProfilePhoto, PasswordHash)
-                        VALUES
-                            (@Name, @Email, @Mobile, @Address, @DOB, @Gender, @CommunityInfo, @ProfilePhoto, @PasswordHash);
-                        SELECT SCOPE_IDENTITY();";
+                        INSERT INTO Userss
+        (Name, Email, PasswordHash, Role, Status, CreatedAt)
+    VALUES
+        (@Name, @Email, @PasswordHash, 'User', 'Pending', GETDATE());
+    SELECT SCOPE_IDENTITY();";
 
                     using (var cmd = new SqlCommand(insertQuery, con))
                     {
                         cmd.CommandType = CommandType.Text;
                         cmd.Parameters.AddWithValue("@Name", signupRequest.Name ?? string.Empty);
                         cmd.Parameters.AddWithValue("@Email", signupRequest.Email ?? string.Empty);
-                        cmd.Parameters.AddWithValue("@Mobile", signupRequest.Mobile ?? string.Empty);
-                        cmd.Parameters.AddWithValue("@Address", signupRequest.Address ?? string.Empty);
-                        cmd.Parameters.AddWithValue("@DOB", signupRequest.DOB);
-                        cmd.Parameters.AddWithValue("@Gender", signupRequest.Gender ?? string.Empty);
-                        cmd.Parameters.AddWithValue("@CommunityInfo", signupRequest.CommunityInfo ?? string.Empty);
-                        cmd.Parameters.AddWithValue("@ProfilePhoto", signupRequest.ProfilePhoto ?? string.Empty);
                         cmd.Parameters.AddWithValue("@PasswordHash", hashedPassword);
 
                         await con.OpenAsync();
@@ -94,7 +88,7 @@ namespace Levavishwam_Backend.RepositoryLayer
             {
                 using (var con = new SqlConnection(_connectionString))
                 {
-                    const string loginQuery = @"SELECT UserId, Name, Email, PasswordHash FROM Users WHERE Email = @Email";
+                    const string loginQuery = @"SELECT UserId, Name, Email, PasswordHash FROM Userss WHERE Email = @Email";
                     using (var cmd = new SqlCommand(loginQuery, con))
                     {
                         cmd.CommandType = CommandType.Text;
