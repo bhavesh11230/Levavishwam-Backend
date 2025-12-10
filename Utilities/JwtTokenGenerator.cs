@@ -4,10 +4,10 @@ using System.Security.Claims;
 using System.Text;
 namespace Levavishwam_Backend.Services
 {
-    public class JwtService
+    public class JwtTokenGenerator
     {
         private readonly IConfiguration _configuration;
-        public JwtService(IConfiguration configuration)
+        public JwtTokenGenerator(IConfiguration configuration)
         {
             _configuration = configuration;
         }

@@ -64,12 +64,17 @@
 //}
 
 
-using Levavishwam_Backend.RepositoryLayer;
-using Levavishwam_Backend.ServiceLayer;
+using Levavishwam_Backend.Data;
+using Levavishwam_Backend.RepositoryLayer.ImplementationRL;
+using Levavishwam_Backend.RepositoryLayer.InterfaceRL;
+using Levavishwam_Backend.ServiceLayer.ImplementationSL;
+using Levavishwam_Backend.ServiceLayer.InterfaceSL;
 using Levavishwam_Backend.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Levavishwam_Backend
 {
@@ -97,9 +102,14 @@ namespace Levavishwam_Backend
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddSingleton<JwtService>();
-            builder.Services.AddScoped<IAuthRL, AuthRL>();
-            builder.Services.AddScoped<IAuthSL, AuthSL>();
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DBSettingConnection"));
+            });
+
+            builder.Services.AddSingleton<JwtTokenGenerator>();
+            builder.Services.AddScoped<IAuthRepository, AuthRepository>();
+            builder.Services.AddScoped<IAuthService, AuthService>();
 
             builder.Services.AddAuthentication(options =>
             {
