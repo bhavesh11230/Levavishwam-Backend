@@ -95,6 +95,7 @@ namespace Levavishwam_Backend.RepositoryLayer.ImplementationRL
                 response.Message = "Login successful";
                 response.UserId = user.UserId;
                 response.Name = user.Name;
+                response.Role = user.Role;
             }
             catch (Exception ex)
             {
