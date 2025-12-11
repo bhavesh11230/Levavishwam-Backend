@@ -1,9 +1,6 @@
-﻿using Levavishwam_Backend.Models;
+﻿
+using Levavishwam_Backend.Models;
 using Microsoft.EntityFrameworkCore;
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
 
 namespace Levavishwam_Backend.Data
 {
@@ -11,28 +8,9 @@ namespace Levavishwam_Backend.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-       
+        // TABLES
         public DbSet<User> Users { get; set; }
-=======
-using System;
-using System.Collections.Generic;
-
-namespace Levavishwam_Backend.Data
-{
-    public class AppDBContext : DbContext
-    {
-        public AppDBContext(Microsoft.EntityFrameworkCore.DbContextOptions<AppDBContext> options) : base(options) { }
->>>>>>> Stashed changes
-=======
-using System;
-using System.Collections.Generic;
-
-namespace Levavishwam_Backend.Data
-{
-    public class AppDBContext : DbContext
-    {
-        public AppDBContext(Microsoft.EntityFrameworkCore.DbContextOptions<AppDBContext> options) : base(options) { }
->>>>>>> Stashed changes
+        public DbSet<Menu> Menus { get; set; }
 
         public DbSet<CarouselImage> Carousel { get; set; }
         public DbSet<Event> Events { get; set; }
@@ -40,14 +18,12 @@ namespace Levavishwam_Backend.Data
         public DbSet<Download> Downloads { get; set; }
         public DbSet<CommitteeMember> Committee { get; set; }
         public DbSet<Information> Information { get; set; }
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // USER TABLE CONFIGURATION
+            
             modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("Users");
@@ -59,7 +35,7 @@ namespace Levavishwam_Backend.Data
                     .HasMaxLength(200);
 
                 entity.HasIndex(u => u.Email)
-                    .IsUnique();
+                    .IsUnique(); 
 
                 entity.Property(u => u.PasswordHash)
                     .IsRequired();
@@ -69,7 +45,7 @@ namespace Levavishwam_Backend.Data
                     .HasMaxLength(50);
 
                 entity.Property(u => u.Status)
-                    .HasDefaultValue("Pending")
+                    .HasDefaultValue("Pending")  
                     .HasMaxLength(50);
 
                 entity.Property(u => u.CreatedAt)
@@ -79,11 +55,30 @@ namespace Levavishwam_Backend.Data
                     .IsRequired(false);
             });
 
-            
+           
+            modelBuilder.Entity<Menu>(entity =>
+            {
+                entity.ToTable("Menus");
+
+                entity.HasKey(m => m.Id);
+
+                entity.Property(m => m.Title)
+                    .IsRequired()
+                    .HasMaxLength(100);
+
+                entity.Property(m => m.Path)
+                    .IsRequired()
+                    .HasMaxLength(150);
+
+                entity.Property(m => m.OrderNo)
+                    .IsRequired();
+
+                entity.Property(m => m.IsActive)
+                    .HasDefaultValue(true);
+
+                entity.Property(m => m.IsAdminOnly)
+                    .HasDefaultValue(false);
+            });
         }
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
     }
 }
