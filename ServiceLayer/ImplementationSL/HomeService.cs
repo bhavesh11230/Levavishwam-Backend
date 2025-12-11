@@ -14,11 +14,19 @@ namespace Levavishwam_Backend.ServiceLayer.ImplementationSL
         }
 
         public Task<List<CarouselDto>> GetCarouselAsync() => _repo.GetCarouselAsync();
+
         public Task<List<EventDto>> GetEventsAsync() => _repo.GetEventsAsync();
+
+        public Task<EventDto?> GetEventByIdAsync(int id) => _repo.GetEventByIdAsync(id);
+
         public Task<List<NewsDto>> GetNewsAsync() => _repo.GetNewsAsync();
-        public Task<List<DownloadDto>> GetDownloadsAsync() => _repo.GetDownloadsAsync();
-        public Task<List<CommitteeMemberDto>> GetCommitteeAsync() => _repo.GetCommitteeAsync();
-        public Task<List<InformationDto>> GetInformationAsync() => _repo.GetInformationAsync();
+
         public Task<NewsDto?> GetNewsByIdAsync(int id) => _repo.GetNewsByIdAsync(id);
+
+        public Task<List<DownloadDto>> GetDownloadsAsync() => _repo.GetDownloadsAsync();
+
+        public Task<List<CommitteeMemberDto>> GetCommitteeAsync() => _repo.GetCommitteeAsync();
+
+        public Task<List<InformationDto>> GetInformationAsync() => _repo.GetInformationAsync();
     }
 }

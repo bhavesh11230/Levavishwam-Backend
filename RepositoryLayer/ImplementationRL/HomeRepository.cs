@@ -34,9 +34,28 @@ namespace Levavishwam_Backend.RepositoryLayer.ImplementationRL
                 EventTime = x.EventTime,
                 Location = x.Location,
                 Description = x.Description,
+                Content = x.Content,
                 ImageUrl = x.ImageUrl,
                 Status = x.Status
             }).ToListAsync();
+
+        public async Task<EventDto?> GetEventByIdAsync(int id) =>
+        await _db.Events
+        .Where(x => x.Id == id)
+        .Select(x => new EventDto
+        {
+            Id = x.Id,
+            Title = x.Title,
+            EventDate = x.EventDate,
+            EventTime = x.EventTime,
+            Location = x.Location,
+            Description = x.Description,
+            Content = x.Content,
+            ImageUrl = x.ImageUrl,
+            Status = x.Status
+        })
+        .FirstOrDefaultAsync();
+
 
         public async Task<List<NewsDto>> GetNewsAsync() =>
             await _db.News.Select(x => new NewsDto

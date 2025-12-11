@@ -29,6 +29,15 @@ namespace Levavishwam_Backend.Controllers
             return Ok(data);
         }
 
+        [HttpGet("events/{id}")]
+        public async Task<IActionResult> GetEventById(int id)
+        {
+            var data = await _service.GetEventByIdAsync(id);
+            if (data == null) return NotFound();
+            return Ok(data);
+        }
+
+
         [HttpGet("news")]
         public async Task<IActionResult> GetNews()
         {

@@ -6,9 +6,10 @@ namespace Levavishwam_Backend.RepositoryLayer.InterfaceRL
     {
         Task<List<CarouselDto>> GetCarouselAsync();
         Task<List<EventDto>> GetEventsAsync();
-        Task<List<NewsDto>> GetNewsAsync();
-        Task<NewsDto> GetNewsByIdAsync(int id);
+        Task<EventDto?> GetEventByIdAsync(int id);
 
+        Task<List<NewsDto>> GetNewsAsync();
+        Task<NewsDto?> GetNewsByIdAsync(int id);
         Task<List<DownloadDto>> GetDownloadsAsync();
         Task<List<CommitteeMemberDto>> GetCommitteeAsync();
         Task<List<InformationDto>> GetInformationAsync();
