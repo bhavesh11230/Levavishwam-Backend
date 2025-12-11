@@ -6,7 +6,6 @@ using Levavishwam_Backend.RepositoryLayer.ImplementationRL;
 using Levavishwam_Backend.ServiceLayer.InterfaceSL;
 using Levavishwam_Backend.ServiceLayer.ImplementationSL;
 using Levavishwam_Backend.Services;
-
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -26,6 +25,7 @@ namespace Levavishwam_Backend
                 options.AddPolicy("AllowFrontend", policy =>
                 {
                     policy.WithOrigins("http://localhost:5173")
+
                           .AllowAnyHeader()
                           .AllowAnyMethod()
                           .AllowCredentials();
@@ -79,7 +79,6 @@ namespace Levavishwam_Backend
                     )
                 };
             });
-            // -------------------------------------------------
 
             var app = builder.Build();
 
@@ -91,7 +90,7 @@ namespace Levavishwam_Backend
 
             app.UseHttpsRedirection();
 
-            app.UseCors("AllowFrontend");
+            app.UseCors("AllowFrontend");   
             app.UseAuthentication();
             app.UseAuthorization();
 

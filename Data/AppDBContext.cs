@@ -19,6 +19,7 @@ namespace Levavishwam_Backend.Data
         public DbSet<CommitteeMember> Committee { get; set; }
         public DbSet<Information> Information { get; set; }
 
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
