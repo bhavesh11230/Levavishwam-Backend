@@ -2,16 +2,21 @@
 using Levavishwam_Backend.Models;
 using Microsoft.EntityFrameworkCore;
 
+using System;
+
 namespace Levavishwam_Backend.Data
 {
     public class AppDbContext : DbContext
     {
+        internal object UserProfiles;
+
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         // TABLES
         public DbSet<User> Users { get; set; }
         public DbSet<Menu> Menus { get; set; }
 
+        // ------------------ HOME MODULE -------------------
         public DbSet<CarouselImage> Carousel { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<News> News { get; set; }
@@ -20,6 +25,10 @@ namespace Levavishwam_Backend.Data
         public DbSet<Information> Information { get; set; }
 
 
+        // ------------------ Profile MODULE -------------------
+        public DbSet<UserProfile> UserProfile { get; set; }
+
+        // ------------------ MODEL CONFIG -------------------
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -80,6 +89,30 @@ namespace Levavishwam_Backend.Data
                 entity.Property(m => m.IsAdminOnly)
                     .HasDefaultValue(false);
             });
+
+            // USERPROFILE TABLE CONFIGURATION
+            modelBuilder.Entity<UserProfile>(entity =>
+            {
+                entity.ToTable("UserProfile");
+
+                entity.HasKey(p => p.UserProfileId);
+
+                entity.Property(p => p.UserId).IsRequired();
+
+                entity.Property(p => p.Mobile).HasMaxLength(20);
+                entity.Property(p => p.Address).HasMaxLength(500);
+                entity.Property(p => p.DOB).HasColumnType("date");
+                entity.Property(p => p.Gender).HasMaxLength(20);
+                entity.Property(p => p.CommunityInfo).HasColumnType("nvarchar(max)");
+                entity.Property(p => p.ProfilePhotoPath).HasMaxLength(500);
+            });
+
+            modelBuilder.Entity<User>()
+                .HasOne(u => u.UserProfile)
+                .WithOne(p => p.User)
+                .HasForeignKey<UserProfile>(p => p.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
+
         }
     }
 }
