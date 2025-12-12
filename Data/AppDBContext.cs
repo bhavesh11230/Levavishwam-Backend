@@ -16,7 +16,8 @@ namespace Levavishwam_Backend.Data
         public DbSet<User> Users { get; set; }
         public DbSet<Menu> Menus { get; set; }
 
-        // ------------------ HOME MODULE -------------------
+        
+        // HOME MODULE 
         public DbSet<CarouselImage> Carousel { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<News> News { get; set; }
@@ -25,10 +26,10 @@ namespace Levavishwam_Backend.Data
         public DbSet<Information> Information { get; set; }
 
 
-        // ------------------ Profile MODULE -------------------
+        // Profile MODULE 
         public DbSet<UserProfile> UserProfile { get; set; }
 
-        // ------------------ MODEL CONFIG -------------------
+        // MODEL CONFIG 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

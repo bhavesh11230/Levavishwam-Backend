@@ -1,5 +1,4 @@
-﻿//using Levavishwam_Backend.Dtos;
-using Levavishwam_Backend.DTOs.Profile;
+﻿using Levavishwam_Backend.DTOs.Profile;
 using Levavishwam_Backend.ServiceLayer.InterfaceSL;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +34,7 @@ namespace Levavishwam_Backend.Controllers
         }
 
 
-        //Upload Img
+   
         [HttpPost("{userId}/photo")]
         public async Task<IActionResult> UploadProfilePhoto(int userId, IFormFile file)
         {
@@ -45,7 +44,6 @@ namespace Levavishwam_Backend.Controllers
             return Ok(new { Url = newPath });
         }
 
-        // DELETE api/profile/photo/{userId}
         [HttpDelete("{userId}/deletePhoto")]
         public async Task<IActionResult> DeletePhoto(int userId)
         {
