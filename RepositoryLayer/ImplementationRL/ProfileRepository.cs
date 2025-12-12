@@ -34,17 +34,5 @@ namespace Levavishwam_Backend.RepositoryLayer.ImplementationRL
         {
             await _db.SaveChangesAsync();
         }
-
-        //public async Task<UserProfile> GetByUserIdAsync(int userId)
-        //{
-        //    return await _ctx.UserProfile.SingleOrDefaultAsync(u => u.UserId == userId);
-        //}
-
-        //public async Task<bool> UpdateAsync(UserProfile profile)
-        //{
-        //    _ctx.UserProfile.Update(profile);
-        //    var saved = await _ctx.SaveChangesAsync();
-        //    return saved > 0;
-        //}
     }
 }

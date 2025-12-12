@@ -23,7 +23,6 @@ namespace Levavishwam_Backend.RepositoryLayer.ImplementationRL
 
             try
             {
-                // Check if email already exists
                 bool exists = await _db.Users
                     .AnyAsync(u => u.Email == signupRequest.Email);
 
@@ -34,10 +33,8 @@ namespace Levavishwam_Backend.RepositoryLayer.ImplementationRL
                     return response;
                 }
 
-                // Hash password
                 string hashedPassword = BCrypt.Net.BCrypt.HashPassword(signupRequest.Password);
 
-                // Create User entity
                 var newUser = new User
                 {
                     Name = signupRequest.Name,
@@ -81,7 +78,6 @@ namespace Levavishwam_Backend.RepositoryLayer.ImplementationRL
                     return response;
                 }
 
-                // Validate password using BCrypt
                 bool isValidPassword = BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.PasswordHash);
 
                 if (!isValidPassword)

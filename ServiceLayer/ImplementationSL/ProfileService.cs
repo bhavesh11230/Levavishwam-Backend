@@ -65,23 +65,16 @@ namespace Levavishwam_Backend.ServiceLayer.ImplementationSL
             return true;
         }
 
-        /// <summary>
-        /// Uploads the profile photo, updates the UserProfile.ProfilePhotoPath and deletes the old file.
-        /// Returns the new relative path on success, null on failure.
-        /// </summary>
         public async Task<string> UpdateProfilePhotoAsync(int userId, [FromForm] IFormFile file)
         {
             if (file == null || file.Length == 0) return null;
 
-            // upload
             var uploadedPath = await _uploadService.UploadFileAsync(file, "profile-photos");
             if (string.IsNullOrWhiteSpace(uploadedPath)) return null;
 
-            // get existing user/profile
             var (user, profile) = await _repo.GetByUserIdAsync(userId);
             if (user == null)
             {
-                // nothing to attach to — clean up uploaded file
                 await _uploadService.DeleteFileAsync(uploadedPath);
                 return null;
             }
@@ -100,7 +93,6 @@ namespace Levavishwam_Backend.ServiceLayer.ImplementationSL
             profile.UpdatedAt = DateTime.UtcNow;
             user.UpdatedAt = DateTime.UtcNow;
 
-            // update DB
             await _repo.UpdateAsync(user, profile);
             try
             {
@@ -108,12 +100,10 @@ namespace Levavishwam_Backend.ServiceLayer.ImplementationSL
             }
             catch
             {
-                // DB failed — remove newly uploaded file to avoid orphan and return null
                 await _uploadService.DeleteFileAsync(uploadedPath);
-                throw; // rethrow so controller can return appropriate error / log
+                throw; 
             }
 
-            // DB succeeded — delete old file (if any). ignore delete failure.
             if (!string.IsNullOrWhiteSpace(oldPath))
             {
                 await _uploadService.DeleteFileAsync(oldPath);

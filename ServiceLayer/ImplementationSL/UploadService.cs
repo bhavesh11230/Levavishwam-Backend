@@ -37,7 +37,6 @@ namespace Levavishwam_Backend.ServiceLayer.ImplementationSL
                 await file.CopyToAsync(stream);
             }
             var relativePath = Path.Combine( folderName, fileName).Replace("\\", "/");
-            //var relativePath = Path.Combine('/', folderName, fileName).Replace("\\", "/");
 
             return relativePath;
         }
