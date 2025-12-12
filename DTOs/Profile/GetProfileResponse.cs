@@ -11,5 +11,6 @@
         public string Gender { get; set; }
         public string CommunityInfo { get; set; }
         public string ProfilePhotoPath { get; set; }
+        public string Status { get; set; }
     }
 }

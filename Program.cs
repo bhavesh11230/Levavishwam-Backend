@@ -62,17 +62,20 @@
 //    }
 //}
 using Levavishwam_Backend.Data;
-
+using Levavishwam_Backend.RepositoryLayer.ImplementationRL;
 // AUTH LAYERS
 using Levavishwam_Backend.RepositoryLayer.InterfaceRL;
-using Levavishwam_Backend.RepositoryLayer.ImplementationRL;
-using Levavishwam_Backend.ServiceLayer.InterfaceSL;
 using Levavishwam_Backend.ServiceLayer.ImplementationSL;
+using Levavishwam_Backend.ServiceLayer.InterfaceSL;
 using Levavishwam_Backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace Levavishwam_Backend
 {
@@ -124,7 +127,13 @@ namespace Levavishwam_Backend
 
             // --------------------- PROFILE MODULE DI (ADDED) ---------------------
             builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
-            builder.Services.AddScoped<IProfileService, ProfileService>(); 
+            builder.Services.AddScoped<IProfileService, ProfileService>();
+
+
+            // --------------------- FileUpload MODULE DI (ADDED) ---------------------
+            builder.Services.AddScoped<IUploadService, UploadService>();
+            builder.Services.AddScoped<IFileService, FileService>();
+
 
             builder.Services.AddAuthentication(options =>
             {
@@ -150,6 +159,7 @@ namespace Levavishwam_Backend
 
             if (app.Environment.IsDevelopment())
             {
+                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
@@ -160,9 +170,25 @@ namespace Levavishwam_Backend
             app.UseAuthentication();
             app.UseAuthorization();
 
+            var uploadsRoot = Path.Combine(builder.Environment.ContentRootPath, "Uploads");
+            if (!Directory.Exists(uploadsRoot))
+            {
+                Directory.CreateDirectory(uploadsRoot);
+            }
+
+            app.UseStaticFiles();
+
+            app.UseStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.ContentRootPath, "Uploads")),
+                RequestPath = "/Uploads"
+            });
+
             app.MapControllers();
 
             app.Run();
+
+
         }
     }
 }

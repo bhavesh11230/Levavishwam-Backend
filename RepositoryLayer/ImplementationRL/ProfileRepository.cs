@@ -12,12 +12,14 @@ namespace Levavishwam_Backend.RepositoryLayer.ImplementationRL
         {
             _db = db;
         }
+        
         public async Task<(User user, UserProfile profile)> GetByUserIdAsync(int userId)
         {
             var user = await _db.Users.Include(u => u.UserProfile).FirstOrDefaultAsync(u => u.UserId == userId);
             if (user == null) return (null, null);
             return (user, user.UserProfile);
         }
+        
         public async Task UpdateAsync(User user, UserProfile profile)
         {
             _db.Users.Update(user);
@@ -27,9 +29,22 @@ namespace Levavishwam_Backend.RepositoryLayer.ImplementationRL
             }
             await Task.CompletedTask;
         }
+        
         public async Task SaveChangesAsync()
         {
             await _db.SaveChangesAsync();
         }
+
+        //public async Task<UserProfile> GetByUserIdAsync(int userId)
+        //{
+        //    return await _ctx.UserProfile.SingleOrDefaultAsync(u => u.UserId == userId);
+        //}
+
+        //public async Task<bool> UpdateAsync(UserProfile profile)
+        //{
+        //    _ctx.UserProfile.Update(profile);
+        //    var saved = await _ctx.SaveChangesAsync();
+        //    return saved > 0;
+        //}
     }
 }

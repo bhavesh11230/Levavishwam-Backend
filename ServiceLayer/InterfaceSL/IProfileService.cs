@@ -6,5 +6,9 @@ namespace Levavishwam_Backend.ServiceLayer.InterfaceSL
     {
         Task<GetProfileResponseDto> GetProfileAsync(int userId);
         Task<bool> UpdateProfileAsync(int userId, UpdateProfileRequestDto dto);
+
+        //Profile Img
+        Task<string> UpdateProfilePhotoAsync(int userId, IFormFile file);
+        Task<bool> DeleteProfilePhotoAsync(int userId);
     }
 }

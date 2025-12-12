@@ -10,5 +10,6 @@ namespace Levavishwam_Backend.DTOs.Profile
         public DateTime? DOB { get; set; }
         public string Gender { get; set; }
         public string CommunityInfo { get; set; }
+        public string? ProfilePhotoPath { get; set; }
     }
 }
